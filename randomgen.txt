@@ -1,0 +1,466 @@
+Help on module randomgen:
+
+NAME
+    randomgen
+
+DESCRIPTION
+    Sample code for the article "Random Number Generation and Sampling Methods"
+    https://www.codeproject.com/Articles/1190459/Random-Number-Generation-Methods
+    
+    Written by Peter O.
+    Any copyright is released to the Public Domain.
+    https://creativecommons.org/publicdomain/zero/1.0/
+
+CLASSES
+    builtins.object
+        AlmostRandom
+        ConvexPolygonSampler
+        RandomGen
+    
+    class AlmostRandom(builtins.object)
+     |  Methods defined here:
+     |  
+     |  __init__(self, randgen, list)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  choose(self)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class ConvexPolygonSampler(builtins.object)
+     |  A class for uniform random sampling of
+     |  points from a convex polygon.  This
+     |  class only supports convex polygons because
+     |  the random sampling process involves
+     |  triangulating a polygon, which is trivial
+     |  for convex polygons only. "randgen" is a RandomGen
+     |  object, and "points" is a list of points
+     |  (two-item lists) that make up the polygon.
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, randgen, points)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  sample(self)
+     |      Choose a random point in the convex polygon
+     |      uniformly at random.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class RandomGen(builtins.object)
+     |  A class that implements many methods for
+     |  random number generation and sampling.  It takes
+     |  an underlying RNG as specified in the constructor.
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, rng=None)
+     |      Initializes a new RandomGen instance.
+     |      NOTES:
+     |      
+     |      1. Assumes that 'rng' implements
+     |      a 'randint(a, b)' method that returns a random
+     |      integer in the interval [a, b].  Currently, this
+     |      class assumes 'a' is always 0.
+     |      2. 'rndint' (and functions that ultimately call it) may be
+     |      slower than desirable if many random numbers are
+     |      needed at once.  Ways to improve the performance
+     |      of generating many random numbers at once, such
+     |      as parallel processing or vectorization, are currently outside
+     |      the scope of this code.
+     |  
+     |  ball_point(self, dims, radius=1)
+     |      Generates an independent and uniform random point inside a 'dims'-dimensional
+     |      ball (disc, solid sphere, etc.) centered at the origin.
+     |  
+     |  beta(self, a, b, nc=0)
+     |      Generates a beta-distributed random number.
+     |      `a` and `b` are the two parameters of the beta distribution,
+     |      and `nc` is a parameter such that `nc` other than 0
+     |      indicates a _noncentral_ distribution.
+     |  
+     |  binomial(self, trials, p)
+     |  
+     |  choice(self, list)
+     |  
+     |  continuous_choice(self, values, weights)
+     |  
+     |  continuous_choice_n(self, values, weights, n=1)
+     |  
+     |  diceRoll(self, dice, sides=6, bonus=0)
+     |  
+     |  dirichlet(alphas)
+     |  
+     |  exponential(self, lamda=1.0)
+     |  
+     |  frechet(self, a, b, mu=0)
+     |  
+     |  from_interp(self, table)
+     |      Generates a random number given a list of CDF--number
+     |      pairs sorted by CDF.
+     |      
+     |      An example of this list is as follows.
+     |      ` [[0.1, 0], [0.4, 1], [0.8, 2], [0.9, 3], [0.95, 4], [0.99, 5]]`
+     |      
+     |      In this example, the first item of each pair is the value of
+     |      a cumulative distribution function (CDF) and is in the interval [0, 1],
+     |      and the second item is the number associated with that CDF's
+     |      value. The random number will fall within the range of numbers
+     |      suggested in the table, which will be in the interval [0, 5] in the
+     |      example above.
+     |      
+     |      The `numericalTable` method generates an appropriate table
+     |      for this method's `table` parameter, given a CDF and a range
+     |      of numbers.
+     |  
+     |  gamma(self, mean, b=1.0, c=1.0, d=0.0)
+     |      Generates a random number following a gamma distribution.
+     |  
+     |  gaussian_copula(self, cov)
+     |  
+     |  geoellipsoid_point(self, a=6378.137, invf=298.2572236)
+     |      Generates an independent and uniform random
+     |      point on the surface of a geoellipsoid.  The
+     |      geoellipsoid uses the following parameters:
+     |      a - semimajor axis (distance from the center of
+     |         the geoellipsoid to the equator).  The default
+     |         is the WGS 84 ellipsoid's semimajor axis
+     |         in kilometers.
+     |      invf - inverse flattening.  The default is the
+     |         WGS 84 ellipsoid's inverse flattening.
+     |  
+     |  geometric(self, p)
+     |  
+     |  gumbel(self, a, b)
+     |  
+     |  hypercube_point(self, dims, sizeFromCenter=1)
+     |      Generates an independent and uniform random point on the surface of a 'dims'-dimensional
+     |      hypercube (square, cube, etc.)
+     |      centered at the origin.
+     |  
+     |  hypergeometric(self, trials, ones, count)
+     |  
+     |  hypersphere_point(self, dims, radius=1)
+     |      Generates an independent and uniform random point on the surface of a 'dims'-dimensional
+     |      hypersphere (circle, sphere, etc.)
+     |      centered at the origin.
+     |  
+     |  integersWithSum(self, n, total)
+     |  
+     |  integers_from_pdf(self, pdf, mn, mx, n=1)
+     |      Generates one or more random integers from a discrete probability
+     |      distribution expressed as a probability density
+     |      function (PDF), which is also called the probability mass
+     |      function for discrete distributions.  The random integers
+     |      will be in the interval [mn, mx].  `n` random integers will be
+     |      generated. `pdf` is the PDF; it takes one parameter and returns,
+     |      for that parameter, a weight indicating the relative likelihood
+     |      that a random integer will equal that parameter.
+     |      The area under the "curve" of the PDF need not be 1.
+     |      By default, `n` is 1.
+     |  
+     |  kth_smallest_of_n_u01(self, k, n)
+     |      Generates the kth smallest number among n random numbers
+     |      from 0 to 1.
+     |  
+     |  latlon(self)
+     |      Generates an independent and uniform random latitude and
+     |      longitude, in radians.  West and south coordinates
+     |      are negative.
+     |  
+     |  lognormal(self, mu=0.0, sigma=0.0)
+     |  
+     |  lower_bound_copula(self)
+     |  
+     |  mcmc(self, pdf, n)
+     |      Generates 'n' random numbers that follow
+     |      the probability density given in 'pdf' using
+     |      a Markov-chain Monte Carlo algorithm, currently
+     |      Metropolis--Hastings.  The resulting random numbers
+     |      are not independent, but are often close to
+     |      being independent.  'pdf' takes one number as
+     |      a parameter and returns a number 0 or greater.
+     |      The area under the curve (integral) of 'pdf'
+     |      need not be equal to 1.
+     |  
+     |  mcmc2(self, pdf, n)
+     |      Generates 'n' pairs of random numbers that follow
+     |      the probability density given in 'pdf' using
+     |      a Markov-chain Monte Carlo algorithm, currently
+     |      Metropolis--Hastings.  The resulting random pairs
+     |      are not independent, but are often close to
+     |      being independent.  'pdf' takes one parameter,
+     |      namely, a list of two numbers giving a sampled
+     |      point and returns a number 0 or greater.
+     |      The volume under the surface (integral) of 'pdf'
+     |      need not be equal to 1.
+     |  
+     |  monte_carlo_integrate(self, func, bounds, samples=1000)
+     |      Estimates the integral (volume) of a function within the
+     |      given bounds using Monte Carlo integration, which generates
+     |      an estimate using the help of randomization.
+     |      func - Function to integrate.  Takes the same number
+     |         of parameters as the length of bounds.
+     |      bounds - Bounds of integration at each dimension.
+     |         An N-length array of arrays.  Each array in turn
+     |         contains two items: the lower bound and upper bound
+     |         for that dimension.
+     |      samples - Number of times to sample the bounds of
+     |         integration randomly.  The default is 1000 samples.
+     |      Returns an array containing two items: the estimated
+     |      integral and the standard error.
+     |  
+     |  moyal(self, mu=0, sigma=1)
+     |      Sample from a Moyal distribution, using the
+     |      method given in C. Walck, "Handbook on
+     |      Statistical Distributions for Experimentalists",
+     |      pp. 93-94.
+     |  
+     |  multinormal(self, mu, cov)
+     |  
+     |  multinormal_n(self, mu, cov, n=1)
+     |  
+     |  multipoisson(self, firstmean, othermeans)
+     |      Multivariate Poisson distribution (as found in Mathematica).
+     |  
+     |  multivariate_t(self, mu, cov, df)
+     |      Multivariate t-distribution, mu is the mean (can be None),
+     |      cov is the covariance matrix, and df is the degrees of freedom.
+     |  
+     |  negativeMultinomial(self, succ, failures)
+     |      Negative multinomial distribution.
+     |      
+     |      Models the number of failures of one or more
+     |      kinds before a given number of successes happens.
+     |      succ: Number of successes.
+     |      failures: Contains probabilities for each kind of failure.
+     |      The sum of probabilities must be less than 1.
+     |      Returns: A list containing a random number
+     |      of failures of each kind of failure.
+     |  
+     |  negativebinomial(self, successes, p)
+     |  
+     |  nonzeroIntegersWithSum(self, n, total)
+     |  
+     |  normal(self, mu=0.0, sigma=1.0)
+     |      Generates a normally-distributed random number.
+     |  
+     |  numbersWithSum(self, count, sum=1.0)
+     |  
+     |  numbers_from_cdf(self, cdf, mn, mx, n=1, steps=100)
+     |      Generates one or more random numbers from a continuous probability
+     |      distribution by numerically inverting its cumulative
+     |      distribution function (CDF).  The random number
+     |      will be in the interval [mn, mx].  `n` random numbers will be
+     |      generated. `cdf` is the CDF; it takes one parameter and returns,
+     |      for that parameter, the probability that a random number will
+     |      be less than or equal to that parameter. `steps` is the number
+     |      of subintervals between sample points of the CDF.
+     |      By default, `n` is 1 and `steps` is 100.
+     |  
+     |  numbers_from_pdf(self, pdf, mn, mx, n=1, steps=100)
+     |      Generates one or more random numbers from a continuous probability
+     |      distribution expressed as a probability density
+     |      function (PDF).  The random number
+     |      will be in the interval [mn, mx].  `n` random numbers will be
+     |      generated. `pdf` is the PDF; it takes one parameter and returns,
+     |      for that parameter, a weight indicating the relative likelihood
+     |       that a random number will be close to that parameter. `steps`
+     |      is the number of subintervals between sample points of the PDF.
+     |      The area under the curve of the PDF need not be 1.
+     |      By default, `n` is 1 and `steps` is 100.
+     |  
+     |  pareto(self, minimum, alpha)
+     |  
+     |  partialshuffle(self, list, k)
+     |      Does a partial shuffle of
+     |      a list's items (stops when 'k' items
+     |      are shuffled); the shuffled items
+     |      will appear at the end of the list.
+     |      Returns 'list'.
+     |  
+     |  poisson(self, mean)
+     |      Generates a random number following a Poisson distribution.
+     |  
+     |  powerlognormal(self, p, sigma=1.0)
+     |      Power lognormal distribution, as described in NIST/SEMATECH
+     |      e-Handbook of Statistical Methods, http://www.itl.nist.gov/div898/handbook/,
+     |      accessed Jun. 9, 2018, sec. 1.3.6.6.14.
+     |  
+     |  powernormal(self, p)
+     |      Power normal distribution, as described in NIST/SEMATECH
+     |      e-Handbook of Statistical Methods, http://www.itl.nist.gov/div898/handbook/,
+     |      accessed Jun. 9, 2018, sec. 1.3.6.6.13.
+     |  
+     |  product_copula(self, n=2)
+     |  
+     |  randomwalk_posneg1(self, n)
+     |      Random walk of uniform positive and negative steps.
+     |  
+     |  randomwalk_u01(self, n)
+     |      Random walk of uniform 0-1 random numbers.
+     |  
+     |  rayleigh(self, a)
+     |      Generates a random number following a Rayleigh distribution.
+     |  
+     |  rndbits(self, n)
+     |      Generates an n-bit random integer.
+     |  
+     |  rndint(self, maxInclusive)
+     |  
+     |  rndintexcrange(self, minInclusive, maxExclusive)
+     |  
+     |  rndintrange(self, minInclusive, maxInclusive)
+     |  
+     |  rndrange(self, minInclusive, maxInclusive)
+     |  
+     |  rndrangemaxexc(self, minInclusive, maxExclusive)
+     |  
+     |  rndrangeminexc(self, mn, mx)
+     |  
+     |  rndrangeminmaxexc(self, mn, mx)
+     |  
+     |  rndu01(self)
+     |  
+     |  rndu01oneexc(self)
+     |  
+     |  rndu01zeroexc(self)
+     |  
+     |  rndu01zerooneexc(self)
+     |  
+     |  sample(self, list, k)
+     |  
+     |  shell_point(self, dims, outerRadius=1, innerRadius=0.5)
+     |      Generates an independent and uniform random point inside a 'dims'-dimensional
+     |      spherical shell (donut, hollow sphere, etc.)
+     |      centered at the origin.
+     |  
+     |  shuffle(self, list)
+     |  
+     |  simplex_point(self, points)
+     |      Generates an independent and uniform random point on the surface of an N-dimensional
+     |      simplex (line segment, triangle, tetrahedron, etc.)
+     |      with the given coordinates.
+     |  
+     |  slicesample(self, pdf, n, xstart=0.1)
+     |      Slice sampling of R. M. Neal.
+     |      Generates 'n' random numbers that follow
+     |      the probability density given in 'pdf' using
+     |      slice sampling.  The resulting random numbers
+     |      are not independent, but are often close to
+     |        being independent.  'pdf' takes one number as
+     |        a parameter and returns a number 0 or greater.
+     |        The area under the curve (integral) of 'pdf'
+     |        need not be equal to 1. 'xstart' should be
+     |      chosen such that `pdf(xstart)>0`.
+     |  
+     |  spsa_minimize(self, func, guess, iterations=200, constrain=None, a=None, c=None, acap=None)
+     |      Tries to find a choice of parameters that minimizes the value
+     |      of a scoring function, also called the objective function or loss
+     |      function, starting from an initial guess.  This method uses an
+     |      algorithm called "simultaneous perturbation
+     |      stochastic approximation", which is a randomized
+     |      search for the minimum value of the objective function.
+     |      func - Objective function, a function that calculates a score for the
+     |       given array of parameters and returns that score.  The score is a
+     |       single number; the lower the score, the better.
+     |       The score can be negative.  (Note that the problem of maximizing
+     |       the score is the same as minimizing it except
+     |       that the score's sign is reversed at the end.)
+     |      guess - Initial guess for the best choice of parameters.  This is an
+     |       array of parameters, each of which is a number. This array has
+     |       as many items as the array passed to 'func'.
+     |      iterations - Maximum number of iterations in which to run the
+     |       optimization process.  Default is 200.
+     |      constrain - Optional. A function that takes the given array of
+     |       parameters and constrains them to fit the bounds of a valid
+     |       array of parameters. This function modifies the array in place.
+     |      a - Optional.  A setting used in the optimization process; greater than 0.
+     |      c - Optional.  A setting used in the optimization process; greater than 0. As a guideline,
+     |        'c' is about equal to the "standard deviation of the measurement noise"
+     |        for several measurements at the initial guess, and is a "small positive
+     |        number" if measurements are noise-free (Spall 1998).  Default
+     |        is 0.001.
+     |      acap - Optional.  A setting used in the optimization process; an
+     |        integer greater than 0.
+     |  
+     |  stable(self, alpha, beta)
+     |      Generates a random number following a stable distribution.
+     |  
+     |  stable0(self, alpha, beta, mu, sigma)
+     |      Generates a random number following a 'type 0' stable distribution.
+     |  
+     |  surface_point(self, f, bounds, ngrad, gmax)
+     |      Generates a uniform random point on
+     |         a parametric surface, using a rejection
+     |         approach developed by Williamson, J.F.,
+     |         Physics in Medicine & Biology 32(10), 1987.
+     |      - f: Takes two parameters (u and v) and returns
+     |        a 3-element array expressing
+     |        a 3-dimensional position at the given point.
+     |      - bounds: Two 2-element arrays expressing bounds
+     |        for u and v.  Of the form [[umin, umax], [vmin,
+     |        vmax]].
+     |      - ngrad: Takes two parameters (u and v) and returns
+     |        the norm of the gradient (stretch factor)
+     |        at the given point.  Can be None, in which
+     |        the norm-of-gradient is calculated numerically.
+     |      - gmax: Maximum norm-of-gradient
+     |        for entire surface.
+     |  
+     |  t_copula(self, cov, df)
+     |      Multivariate t-copula. 'cov' is the covariance matrix
+     |      and 'df' is the degrees of freedom.
+     |  
+     |  triangular(self, startpt, midpt, endpt)
+     |  
+     |  upper_bound_copula(self, n=2)
+     |  
+     |  vonmises(self, mean, kappa)
+     |  
+     |  weibull(self, a, b)
+     |      Generates a Weibull-distributed random number.
+     |  
+     |  weighted_choice(self, weights)
+     |  
+     |  weighted_choice_n(self, weights, n=1)
+     |  
+     |  wiener(self, st, en, step=1.0, mu=0.0, sigma=1.0)
+     |      Generates random numbers following a Wiener
+     |      process (Brownian motion). Each element of the return
+     |      value contains a timestamp and a random number in that order.
+     |  
+     |  zero_or_one(self, px, py)
+     |      Returns 1 at probability px/py, 0 otherwise.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+
+FUNCTIONS
+    numericalTable(func, x, y, n=100)
+
+FILE
+    /home/rooster/Documents/SharpDevelopProjects/peteroupc.github.io/randomgen.py
+
+

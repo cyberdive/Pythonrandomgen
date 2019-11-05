@@ -1,0 +1,214 @@
+Help on module fixed:
+
+NAME
+    fixed
+
+CLASSES
+    builtins.object
+        Fixed
+    
+    class Fixed(builtins.object)
+     |  Fixed-point numbers, represented using integers that store multiples
+     |  of 2^-BITS.  They are not necessarily faster than floating-point numbers, nor
+     |  do they necessarily have the same precision or resolution of floating-point
+     |  numbers.  The main benefit of fixed-point numbers is that they improve
+     |  determinism for applications that rely on non-integer real numbers (notably
+     |  simulations and machine learning applications), in the sense that the operations
+     |  given here deliver the same answer for the same input across computers,
+     |  whereas floating-point numbers have a host of problems that make repeatable
+     |  results difficult, including differences in their implementation, rounding
+     |  behavior, and order of operations, as well as nonassociativity of
+     |  floating-point numbers.
+     |  
+     |  The operations given here are not guaranteed to be "constant-time"
+     |  (non-data-dependent and branchless) for all relevant inputs.
+     |  
+     |  Any copyright to this file is dedicated to the Public Domain, under
+     |  Creative Commons Zero version 1.0.
+     |  
+     |  Methods defined here:
+     |  
+     |  __abs__(self)
+     |  
+     |  __add__(a, b)
+     |  
+     |  __cmp__(self, other)
+     |  
+     |  __div__(a, b)
+     |  
+     |  __eq__(self, other)
+     |      Return self==value.
+     |  
+     |  __float__(a)
+     |  
+     |  __floordiv__(a, b)
+     |  
+     |  __ge__(self, other)
+     |      Return self>=value.
+     |  
+     |  __gt__(self, other)
+     |      Return self>value.
+     |  
+     |  __init__(self, i)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  __int__(a)
+     |  
+     |  __le__(self, other)
+     |      Return self<=value.
+     |  
+     |  __lt__(self, other)
+     |      Return self<value.
+     |  
+     |  __mod__(a, b)
+     |  
+     |  __mul__(a, b)
+     |  
+     |  __ne__(self, other)
+     |      Return self!=value.
+     |  
+     |  __neg__(self)
+     |  
+     |  __pos__(self)
+     |  
+     |  __rdiv__(a, b)
+     |  
+     |  __repr__(self)
+     |      Return repr(self).
+     |  
+     |  __rtruediv__(a, b)
+     |  
+     |  __str__(self)
+     |      Return str(self).
+     |  
+     |  __sub__(a, b)
+     |  
+     |  __truediv__(a, b)
+     |  
+     |  acos(a)
+     |      Calculates an approximation of the inverse sine of the given number.
+     |  
+     |  asin(a)
+     |      Calculates an approximation of the inverse sine of the given number.
+     |  
+     |  atan2(y, x)
+     |      Calculates the approximate measure, in radians, of the angle formed by the
+     |      X axis and a line determined by the origin and the given coordinates of a 2D
+     |      point.  This is also known as the inverse tangent.
+     |  
+     |  cos(a)
+     |      Calculates the approximate cosine of the given angle; the angle is in radians.
+     |      For the fraction size used by this class, this method is accurate to within
+     |      1 unit in the last place of the correctly rounded result for all inputs
+     |      in the range [-pi*2, pi*2].
+     |      This method's accuracy decreases beyond that range.
+     |  
+     |  exp(a)
+     |      Calculates an approximation of e (base of natural logarithms) raised
+     |      to the power of this number.  May raise an error if this number
+     |      is extremely high.
+     |  
+     |  floor(a)
+     |  
+     |  log(a)
+     |      Calculates an approximation of the natural logarithm of this number.
+     |  
+     |  pow(a, b)
+     |      Calculates an approximation of this number raised to the power of another number.
+     |  
+     |  round(a)
+     |  
+     |  sin(a)
+     |      Calculates the approximate sine of the given angle; the angle is in radians.
+     |      For the fraction size used by this class, this method is accurate to within
+     |      1 unit in the last place of the correctly rounded result for all inputs
+     |      in the range [-pi*2, pi*2].
+     |      This method's accuracy decreases beyond that range.
+     |  
+     |  sqrt(a)
+     |      Calculates an approximation of the square root of a the given number.
+     |  
+     |  tan(a)
+     |      Calculates the approximate tangent of the given angle; the angle is in radians.
+     |      For the fraction size used by this class, this method is accurate to within
+     |      2 units in the last place of the correctly rounded result for all inputs
+     |      in the range [-pi*2, pi*2].
+     |      This method's accuracy decreases beyond that range.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  v(i)
+     |      Converts a string, integer, Decimal, or other number type into
+     |      a fixed-point number.  If the parameter is a Fixed, returns itself.
+     |      If the given number is a non-integer, returns the closest value to
+     |      a Fixed after rounding using the round-to-nearest-ties-to-even
+     |      rounding mode.  The parameter is recommended to be a string
+     |      or integer, and is not recommended to be a `float`.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  ArcTanBitDiff = 9
+     |  
+     |  ArcTanFrac = 29
+     |  
+     |  ArcTanHTable = [0, 294906490, 137123709, 67461703, 33598225, 16782680,...
+     |  
+     |  ArcTanTable = [421657428, 248918914, 131521918, 66762579, 33510843, 16...
+     |  
+     |  BITS = 20
+     |  
+     |  ExpK = 648270061
+     |  
+     |  HALF = 524288
+     |  
+     |  HalfPiArcTanBits = 843314856
+     |  
+     |  HalfPiBits = 1647099
+     |  
+     |  HalfPiHighRes = 130496653328243011213339889301986179
+     |  
+     |  HighResFrac = 116
+     |  
+     |  Ln2ArcTanBits = 372130559
+     |  
+     |  Log2Bits = 726817
+     |  
+     |  LogMin = 157286.4
+     |  
+     |  MASK = 1048575
+     |  
+     |  PiAndHalfHighRes = 391489959984729033640019667905958538
+     |  
+     |  PiArcTanBits = 1686629713
+     |  
+     |  PiBits = 3294199
+     |  
+     |  PiHighRes = 260993306656486022426679778603972359
+     |  
+     |  QuarterPiArcTanBits = 421657428
+     |  
+     |  SinCosK = 326016435
+     |  
+     |  TwoTimesPiArcTanBits = 3373259426
+     |  
+     |  TwoTimesPiBits = 6588397
+     |  
+     |  TwoTimesPiHighRes = 521986613312972044853359557207944718
+     |  
+     |  __hash__ = None
+
+FILE
+    /home/rooster/Documents/SharpDevelopProjects/peteroupc.github.io/fixed.py
+
+
